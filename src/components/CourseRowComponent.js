@@ -37,10 +37,11 @@ class CourseRowComponent extends React.Component {
               onChange={this.updateTitle}
               value={this.state.course.title}/>
           }
-       /*   {
-            this.state.editing === false //&&
-            //<label>{this.state.course.title}</label>
-          }*/
+          {
+            alert("see this?") /*
+            this.state.editing === false &&
+            <label>{this.state.course.title}</label>*/
+          }
         </td>
         <td>{this.props.course.owner}</td>
         <td>{this.props.course.lastUpdated}</td>
