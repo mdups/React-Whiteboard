@@ -1,69 +1,79 @@
 import React from "react";
-import {updateCourse} from "../services/CourseService";
+import CourseRowComponent from "./CourseRowComponent";
+import courseService from "../services/CourseService";
 
-class CourseRowComponent extends React.Component {
+class CourseListComponent extends React.Component {
   state = {
-    editing: false,
-    courseTitle: "Some Course",
-    course: this.props.course
+    courses: []
   }
 
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    courseService.findAllCourses()
+      .then(courses => this.setState({
+        courses: courses
+      }))
   }
 
-  updateTitle = (event) => {
-    const newTitle = event.target.value
-    const course = { ...this.state.course }
-    course.title = newTitle
-    this.setState({
-      course: course
-    })
+  createCourse = () => {
+    const newCourse = {
+      title: 'New Course',
+      owner: 'me',
+      lastUpdated: 'yesterday'
+    }
+
+    courseService.createCourse(newCourse)
+      .then(actualCourse => this.setState(function (prevState) {
+          return {
+            courses: [
+              ...prevState.courses, actualCourse
+            ]
+          }
+        })
+      )
+      .catch(error => {})
   }
 
-  updateCourse = () => {
-    debugger
-    this.setState({editing: false})
-    updateCourse(this.state.course._id, this.state.course)
+  deleteCourse = (course) => {
+    courseService.deleteCourse(course._id)
+      .then(status => this.setState(prevState => ({
+          courses: prevState.courses.filter(c => c._id !== course._id)
+        })))
   }
 
   render() {
-    return (
-      <tr>
-        <td>
-          {
-            this.state.editing === true &&
-            <input
-              onChange={this.updateTitle}
-              value={this.state.course.title}/>
-          }
-          {
-            this.state.editing === false &&
-            <label>{this.state.course.title}</label>
-          }
-        </td>
-        <td>{this.props.course.owner}</td>
-        <td>{this.props.course.lastUpdated}</td>
-        <td>
-          <button onClick={() => this.props.deleteCourse(this.props.course)}>
-            Delete
+    return(
+      <div className="container">
+        <div className="container">
+          <button
+            onClick={this.createCourse}
+            className="btn btn-success float-right">
+            Create Course
           </button>
+          <h1 className="d-flex justify-content-center">Course List</h1>
+        </div>
+        <table className="table">
+          <thead>
+          <tr>
+            <th>Title</th>
+            <th> Owner </th>
+            <th> Last Edited </th>
+          </tr>
+
+          </thead>
+          <tbody>
           {
-            this.state.editing &&
-            <button onClick={this.updateCourse}>
-              Ok
-            </button>
+            this.state.courses.map(course =>
+              <CourseRowComponent
+                key={course._id}
+                deleteCourse={this.deleteCourse}
+                course={course}/>
+            )
           }
-          {
-            !this.state.editing &&
-            <button onClick={() => this.setState({editing: true})}>
-              Edit
-            </button>
-          }
-        </td>
-      </tr>
-    );
+          </tbody>
+        </table>
+      </div>
+    )
   }
 }
 
-export default CourseRowComponent
+export default CourseListComponent

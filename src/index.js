@@ -7,8 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import CourseListComponent from "./components/CourseListComponent";
 
 ReactDOM.render(
-  <CourseListComponent/>
-  ,
+  <CourseListComponent/>,
   document.getElementById('root')
 );
 

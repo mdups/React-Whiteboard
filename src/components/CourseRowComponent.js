@@ -1,5 +1,6 @@
 import React from "react";
 import {updateCourse} from "../services/CourseService";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 class CourseRowComponent extends React.Component {
   state = {
@@ -38,20 +39,21 @@ class CourseRowComponent extends React.Component {
               value={this.state.course.title}/>
           }
           {
-            alert("see this?") /*
-            this.state.editing === false &&
-            <label>{this.state.course.title}</label>*/
+            this.state.editing === false && /*
+            <Link to={`/edit/${this.state.course._id}`}>*/
+              this.state.course.title
+            /*</Link>*/
           }
         </td>
         <td>{this.props.course.owner}</td>
         <td>{this.props.course.lastUpdated}</td>
         <td>
-          <button onClick={() => this.props.deleteCourse(this.props.course)}>
+          <i className="fas fa-trash" onClick={() => this.props.deleteCourse(this.props.course)}>
             Delete
-          </button>
+          </i>
           {
-            //this.state.editing &&
-            <button >//onClick={this.updateCourse}>
+            this.state.editing &&
+            <button onClick={this.updateCourse}>
               Ok
             </button>
           }
