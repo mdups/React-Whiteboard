@@ -1,6 +1,7 @@
 import React from "react";
 import {updateCourse} from "../services/CourseService";
 import "bootstrap/dist/css/bootstrap.min.css"
+import { Link } from 'react-router-dom';
 
 class CourseRowComponent extends React.Component {
   state = {
@@ -39,10 +40,10 @@ class CourseRowComponent extends React.Component {
               value={this.state.course.title}/>
           }
           {
-            this.state.editing === false && /*
-            <Link to={`/edit/${this.state.course._id}`}>*/
+            this.state.editing === false &&
+            <Link to={`/edit/${this.state.course._id}`}>
               this.state.course.title
-            /*</Link>*/
+            </Link>
           }
         </td>
         <td>{this.props.course.owner}</td>
