@@ -12,10 +12,10 @@ export class CourseManager extends React.Component {
       <Router>
         <div>
 
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/profile">Profile</Link>
-          <Link to="/courses">Course List</Link>
+          <Link to="/login" style={{padding: "5px"}}>Login</Link>
+          <Link to="/register" style={{padding: "5px"}}>Register</Link>
+          <Link to="/profile" style={{padding: "5px"}}>Profile</Link>
+          <Link to="/courses" style={{padding: "5px"}}>Course List</Link>
 
           <Route path="/login" exact component={Login}/>
           <Route path="/register" exact component={Register}/>

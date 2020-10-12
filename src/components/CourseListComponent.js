@@ -40,6 +40,7 @@ class CourseListComponent extends React.Component {
         })))
   }
 
+
   render() {
     return(
       <div className="container">
@@ -51,12 +52,17 @@ class CourseListComponent extends React.Component {
           </button>
           <h1 className="d-flex justify-content-center">Course List</h1>
         </div>
-        <table className="table">
+        <table className="table table-hover" id="MyTable">
           <thead>
           <tr>
             <th>Title</th>
-            <th> Owner </th>
-            <th> Last Edited </th>
+            <th className="d-none d-md-table-cell"> Owner </th>
+            <th className="d-none d-lg-table-cell"> Last Edited </th>
+            <th>
+              <i className="fa fa-th fa-lg"/>
+              <i style={{padding: "5px"}} className="fa fa-bars fa-lg"/>
+
+            </th>
           </tr>
 
           </thead>

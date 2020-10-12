@@ -8,7 +8,8 @@ class CourseRowComponent extends React.Component {
   state = {
     editing: false,
     courseTitle: this.props.course.title,
-    course: this.props.course
+    course: this.props.course,
+    highlighted: false
   }
 
   constructor(props) {
@@ -33,7 +34,8 @@ class CourseRowComponent extends React.Component {
 
   render() {
     return (
-      <tr>
+      <tr className={this.state.highlighted && 'bg-warning'} onClick={
+      () => this.setState({highlighted: !this.state.highlighted})}>
         <td>
           {
             this.state.editing === true &&
@@ -48,21 +50,23 @@ class CourseRowComponent extends React.Component {
             </Link>
           }
         </td>
-        <td>{this.props.course.owner}</td>
-        <td>{this.props.course.lastUpdated}</td>
+        <td className="d-none d-md-table-cell">{this.props.course.owner}</td>
+        <td className="d-none d-lg-table-cell">{this.props.course.lastUpdated}</td>
         <td>
-          <i className="fa fa-trash" onClick={() => this.props.deleteCourse(this.props.course)}>
-          </i>
+          {this.state.editing === false &&
+            <i className="fa fa-trash fa-lg"
+              onClick={() =>
+                this.props.deleteCourse(this.props.course)}/>
+          }
+
           {
             this.state.editing &&
-            <button onClick={this.updateCourse}>
-              {console.log("yo it got here")}
-              Ok
-            </button>
+            <i className="fa fa-check fa-lg" onClick={this.updateCourse}/>
           }
           {
             !this.state.editing &&
-            <i className="fa fa-edit" onClick={() => this.setState({editing: true})}/>
+            <i style={{padding: "5px"}}
+              className="fa fa-edit fa-lg" onClick={() => this.setState({editing: true})}/>
           }
         </td>
       </tr>
