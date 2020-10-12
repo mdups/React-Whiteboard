@@ -1,17 +1,19 @@
 import React from "react";
 import {updateCourse} from "../services/CourseService";
 import "bootstrap/dist/css/bootstrap.min.css"
+import "../../node_modules/font-awesome/css/font-awesome.min.css"
 import { Link } from 'react-router-dom';
 
 class CourseRowComponent extends React.Component {
   state = {
     editing: false,
-    courseTitle: "Some Course",
+    courseTitle: this.props.course.title,
     course: this.props.course
   }
 
   constructor(props) {
     super(props)
+
   }
 
   updateTitle = (event) => {
@@ -19,12 +21,12 @@ class CourseRowComponent extends React.Component {
     const course = { ...this.state.course }
     course.title = newTitle
     this.setState({
-      course: course
+      course: course,
+      courseTitle: newTitle
     })
   }
 
   updateCourse = () => {
-    debugger
     this.setState({editing: false})
     updateCourse(this.state.course._id, this.state.course)
   }
@@ -37,32 +39,30 @@ class CourseRowComponent extends React.Component {
             this.state.editing === true &&
             <input
               onChange={this.updateTitle}
-              value={this.state.course.title}/>
+              value={this.state.courseTitle}/>
           }
           {
             this.state.editing === false &&
             <Link to={`/edit/${this.state.course._id}`}>
-              this.state.course.title
+              {this.state.courseTitle}
             </Link>
           }
         </td>
         <td>{this.props.course.owner}</td>
         <td>{this.props.course.lastUpdated}</td>
         <td>
-          <i className="fas fa-trash" onClick={() => this.props.deleteCourse(this.props.course)}>
-            Delete
+          <i className="fa fa-trash" onClick={() => this.props.deleteCourse(this.props.course)}>
           </i>
           {
             this.state.editing &&
             <button onClick={this.updateCourse}>
+              {console.log("yo it got here")}
               Ok
             </button>
           }
           {
             !this.state.editing &&
-            <button onClick={() => this.setState({editing: true})}>
-              Edit
-            </button>
+            <i className="fa fa-edit" onClick={() => this.setState({editing: true})}/>
           }
         </td>
       </tr>
