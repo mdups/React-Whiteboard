@@ -17,12 +17,10 @@ export class CourseManager extends React.Component {
           <Link to="/register" style={{padding: "5px"}}>Register</Link>
           <Link to="/profile" style={{padding: "5px"}}>Profile</Link>
           <Link to="/courses" style={{padding: "5px"}}>Course List</Link>
-          <Link to="/grid" style={{padding: "5px"}}> GridView </Link>
           <Route path="/login" exact component={Login}/>
           <Route path="/register" exact component={Register}/>
           <Route path="/profile" exact component={Profile}/>
           <Route path="/courses" exact component={CourseListComponent}/>
-          <Route path="/grid" exact component={CourseGridComponent}/>
 
           <Route path="/edit/:courseId" exact component={CourseEditor}/>
         </div>
