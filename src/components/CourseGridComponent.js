@@ -9,6 +9,7 @@ class CourseGridComponent extends React.Component {
     editing: false,
     courseTitle: this.props.course.title,
     course: this.props.course,
+    highlighted: false
   }
 
   constructor(props) {
@@ -31,8 +32,12 @@ class CourseGridComponent extends React.Component {
   }
   render() {
       return (
-        <div className="container">
-          <div>
+
+        <div className={`wbdv-card card p-2 col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2
+         ${this.state.highlighted && 'bg-warning'}`}
+        onClick={
+                () => this.setState({highlighted: !this.state.highlighted})}>
+          <div className="card-title">
             {
               this.state.editing === true &&
               <input
@@ -46,8 +51,8 @@ class CourseGridComponent extends React.Component {
               </Link>
             }
           </div>
-          <div>{this.props.course.owner}</div>
-          <div>{this.props.course.lastUpdated}</div>
+          <div>Owner:{this.props.course.owner}</div>
+          <div>Last Updated: {this.props.course.lastUpdated}</div>
           <div>
             {this.state.editing === false &&
               <i className="fa fa-trash fa-lg"

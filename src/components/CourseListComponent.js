@@ -4,7 +4,8 @@ import courseService from "../services/CourseService";
 import CourseGridComponent from "./CourseGridComponent";
 class CourseListComponent extends React.Component {
   state = {
-    courses: []
+    courses: [],
+    gridView: false
   }
 
   componentDidMount() {
@@ -43,6 +44,8 @@ class CourseListComponent extends React.Component {
 
   render() {
     return(
+    <div>
+
       <div className="container">
         <div className="container">
           <button
@@ -52,6 +55,7 @@ class CourseListComponent extends React.Component {
           </button>
           <h1 className="d-flex justify-content-center">Course List</h1>
         </div>
+     {this.state.gridView === false &&
         <table className="table table-hover" id="MyTable">
           <thead>
           <tr>
@@ -59,7 +63,7 @@ class CourseListComponent extends React.Component {
             <th className="d-none d-md-table-cell"> Owner </th>
             <th className="d-none d-lg-table-cell"> Last Edited </th>
             <th>
-              <i className="fa fa-th fa-lg"/>
+              <i onClick={() => this.setState({gridView: true})} className="fa fa-th fa-lg"/>
               <i style={{padding: "5px"}} className="fa fa-bars fa-lg"/>
 
             </th>
@@ -77,7 +81,28 @@ class CourseListComponent extends React.Component {
           }
           </tbody>
         </table>
+        }
       </div>
+
+    {
+     this.state.gridView === true &&
+     <div className="container">
+       <i className="fa fa-th fa-lg"/>
+       <i onClick={() => this.setState({gridView: false})} style={{padding: "5px"}} className="fa fa-bars fa-lg"/>
+
+       <div className="container-fluid">
+          <div className="row position-relative w100 hover" >
+            {this.state.courses.map(course =>
+              <CourseGridComponent
+                key={course._id}
+                deleteCourse={this.deleteCourse}
+                course={course}/>
+            )}
+          </div>
+       </div>
+     </div>
+    }
+    </div>
     )
   }
 }
