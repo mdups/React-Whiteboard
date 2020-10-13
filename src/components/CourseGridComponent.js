@@ -4,39 +4,35 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "../../node_modules/font-awesome/css/font-awesome.min.css"
 import { Link } from 'react-router-dom';
 
-class CourseRowComponent extends React.Component {
+class CourseGridComponent extends React.Component {
   state = {
     editing: false,
     courseTitle: this.props.course.title,
     course: this.props.course,
-    highlighted: false
   }
 
   constructor(props) {
     super(props)
-
   }
-
   updateTitle = (event) => {
-    const newTitle = event.target.value
-    const course = { ...this.state.course }
-    course.title = newTitle
-    this.setState({
-      course: course,
-      courseTitle: newTitle
-    })
-  }
+      const newTitle = event.target.value
+      const course = { ...this.state.course }
+      course.title = newTitle
+      this.setState({
+        course: course,
+        courseTitle: newTitle
+      })
+    }
+
 
   updateCourse = () => {
-    this.setState({editing: false})
-    updateCourse(this.state.course._id, this.state.course)
+     this.setState({editing: false})
+     updateCourse(this.state.course._id, this.state.course)
   }
-
   render() {
       return (
-        <tr className={this.state.highlighted && 'bg-warning'} onClick={
-        () => this.setState({highlighted: !this.state.highlighted})}>
-          <td>
+        <div className="container">
+          <div>
             {
               this.state.editing === true &&
               <input
@@ -49,10 +45,10 @@ class CourseRowComponent extends React.Component {
                 {this.state.courseTitle}
               </Link>
             }
-          </td>
-          <td className="d-none d-md-table-cell">{this.props.course.owner}</td>
-          <td className="d-none d-lg-table-cell">{this.props.course.lastUpdated}</td>
-          <td>
+          </div>
+          <div>{this.props.course.owner}</div>
+          <div>{this.props.course.lastUpdated}</div>
+          <div>
             {this.state.editing === false &&
               <i className="fa fa-trash fa-lg"
                 onClick={() =>
@@ -68,10 +64,9 @@ class CourseRowComponent extends React.Component {
               <i style={{padding: "5px"}}
                 className="fa fa-edit fa-lg" onClick={() => this.setState({editing: true})}/>
             }
-          </td>
-        </tr>
+          </div>
+        </div>
       );
     }
-}
-
-export default CourseRowComponent
+  }
+export default CourseGridComponent

@@ -1,7 +1,7 @@
 import React from "react";
 import CourseRowComponent from "./CourseRowComponent";
 import courseService from "../services/CourseService";
-
+import CourseGridComponent from "./CourseGridComponent";
 class CourseListComponent extends React.Component {
   state = {
     courses: []
@@ -69,7 +69,7 @@ class CourseListComponent extends React.Component {
           <tbody>
           {
             this.state.courses.map(course =>
-              <CourseRowComponent
+             <CourseRowComponent
                 key={course._id}
                 deleteCourse={this.deleteCourse}
                 course={course}/>
@@ -83,3 +83,5 @@ class CourseListComponent extends React.Component {
 }
 
 export default CourseListComponent
+
+/* */
